@@ -1,14 +1,11 @@
-import React from "react"
-import ReactDOM from "react-dom"
+import React, { Component } from "react"
+import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder"
 import mapboxgl from "mapbox-gl"
-import * as geo from "@mapbox/react-geocoder"
-// import MapboxGeocoder from "@mapbox/react-geocoder"
-console.log(geo)
-const token =
-  "pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA"
 
-mapboxgl.accessToken = token
-class Map extends React.Component {
+mapboxgl.accessToken =
+  "pk.eyJ1IjoiZGl1cml2aiIsImEiOiJjanAxdjA2cTQwMGp1M2tvYzZmZGp3bWc3In0.4cZEyLkU2ikqx_wb4A1z8A"
+
+class Map extends Component {
   state = {
     lng: 5,
     lat: 34,
@@ -17,7 +14,9 @@ class Map extends React.Component {
 
   componentDidMount() {
     const { lng, lat, zoom } = this.state
-
+    const geocoder = new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken
+    })
     const map = new mapboxgl.Map({
       container: this.mapContainer,
       style: "mapbox://styles/mapbox/streets-v9",
@@ -34,18 +33,17 @@ class Map extends React.Component {
         zoom: map.getZoom().toFixed(2)
       })
     })
+    console.log(geocoder)
+    map.addControl(geocoder)
+    geocoder.on("result", e => console.log(e))
   }
 
   render() {
-    const { lng, lat, zoom } = this.state
-
     return (
-      <div>
-        <div
-          ref={el => (this.mapContainer = el)}
-          className="absolute top right left bottom"
-        />
-      </div>
+      <div
+        style={{ width: "400px", height: "300px" }}
+        ref={e => (this.mapContainer = e)}
+      />
     )
   }
 }

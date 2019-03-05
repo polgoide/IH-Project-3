@@ -3,3 +3,13 @@
   font-family: "Roboto", sans-serif;
   margin: 0;
 }
+
+.container {
+  width: 50%;
+  margin: 0 auto;
+}
+@media screen and (max-width: 600px) {
+  .ant-steps-item-description {
+    display: none;
+  }
+}
