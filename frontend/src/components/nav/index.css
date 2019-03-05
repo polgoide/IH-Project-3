@@ -1,0 +1,88 @@
+.top-menu-lead {
+  color: white;
+  display: inline-block;
+  font-size: 18px;
+}
+
+.top-menu {
+  background-color: #ccc;
+  padding: 5px 50px 5px 50px;
+  user-select: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.top-menu > .right {
+  width: 40%;
+}
+.top-menu > .left {
+  width: 40%;
+}
+
+.top-menu > .left > *,
+.top-menu > .right > * {
+  padding: 11.4px;
+  display: inline-block;
+  text-align: center;
+  min-width: 50px;
+}
+
+.top-menu *:hover {
+  cursor: pointer;
+}
+
+.clear-fix {
+  clear: both;
+}
+
+.top-menu .top-menu-icon {
+  padding: 10px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  .top-menu {
+    padding: 40px 20px 20px 20px;
+    max-height: 0;
+    overflow: hidden;
+  }
+
+  .top-menu > .left,
+  .top-menu > .right {
+    display: none;
+  }
+
+  .top-menu-icon {
+    display: block !important;
+  }
+  .top-menu-lead {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    float: none;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .top-menu.toggled {
+    padding: 60px 0 0 0;
+    max-height: 1500px;
+    transition: max-height 1s;
+  }
+
+  .top-menu.toggled > .left {
+    border-bottom: 1px solid black;
+    margin: 15px 0 0 0;
+  }
+
+  .top-menu.toggled *:not(.top-menu-lead):not(.top-menu-icon) {
+    float: none;
+    display: block !important;
+    text-align: left;
+    margin: 0;
+  }
+}
