@@ -1,7 +1,7 @@
 import React from "react"
 import { Switch, Route } from "react-router-dom"
 import Home from "./components/Home"
-import Nuevo from "./components/new/NuevoTest"
+import Nuevo from "./components/new/MasterForm"
 
 export default () => (
   <Switch>

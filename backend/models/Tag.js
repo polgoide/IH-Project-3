@@ -12,11 +12,7 @@ let tagSchema = new Schema(
       {
         type: String
       }
-    ],
-    active: {
-      type: Boolean,
-      default: true
-    }
+    ]
   },
   { timestamps: true }
 )

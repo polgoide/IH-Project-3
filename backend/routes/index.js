@@ -41,6 +41,19 @@ router.get("/editar/:id", isAuth, (req, res, next) => {
     .catch(e => console.log(e))
 })
 
+// Post pic
+router.post(
+  "/upload",
+  // isAuth,
+  uploadCloud.single("image"),
+  (req, res, next) => {
+    let apiUrl = req.file.secure_url
+      .split("/polgoide/image/upload")
+      .join("/polgoide/image/upload/q_auto:low")
+    res.json({ image: req.file.secure_url, api: apiUrl })
+  }
+)
+
 // New job
 router.post("/nuevo", isAuth, uploadCloud.single("image"), (req, res, next) => {
   if (req.file) req.body.image = req.file.url

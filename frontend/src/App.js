@@ -1,12 +1,9 @@
 import React, { Component } from "react"
 import "./App.css"
 import Routes from "./Routes"
-import { NavLink } from "react-router-dom"
-import axios from "axios"
-import { Layout, Menu, Icon } from "antd"
+// import { NavLink } from "react-router-dom"
+// import axios from "axios"
 import Navbar from "./components/nav/Navbar"
-
-const { Header, Content, Footer, Sider } = Layout
 
 class App extends Component {
   render() {

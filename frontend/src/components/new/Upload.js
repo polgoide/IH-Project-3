@@ -1,66 +1,68 @@
 import React from "react"
-import { Upload, Icon, message } from "antd"
+import axios from "axios"
+let url = "http://localhost:3000/upload"
+let serviceUpload = axios.create({ url, withCredentials: true })
 
-function getBase64(img, callback) {
-  const reader = new FileReader()
-  reader.addEventListener("load", () => callback(reader.result))
-  reader.readAsDataURL(img)
-}
-
-function beforeUpload(file) {
-  const isJPG = file.type === "image/*"
-  if (!isJPG) {
-    message.error("You can only upload pictures!")
-  }
-  const isLt2M = file.size / 1024 / 1024 < 2
-  if (!isLt2M) {
-    message.error("Image must smaller than 2MB!")
-  }
-  return isJPG && isLt2M
-}
-
-class picUpload extends React.Component {
+class PicUpload extends React.Component {
   state = {
-    loading: false
+    loading: false,
+    image: {}
   }
 
-  handleChange = info => {
-    if (info.file.status === "uploading") {
-      this.setState({ loading: true })
-      return
-    }
-    if (info.file.status === "done") {
-      // Get this url from response in real world.
-      getBase64(info.file.originFileObj, imageUrl =>
-        this.setState({
-          imageUrl,
-          loading: false
-        })
-      )
-    }
+  // componentDidUpdate() {
+  //   const { updateCurrent } = this.props
+  //   updateCurrent(1)
+  // }
+
+  handleChange = e => {
+    let image = e.target.files[0]
+    this.sendToServer(image, url)
+      .then(res => {
+        let ocrUrl = "https://api.ocr.space/parse/imageurl"
+        this.props.handleImage(res.data.image)
+        axios
+          .get(
+            ocrUrl +
+              "?apikey=ab48b0421688957&language=spa&detectOrientation=true&url=" +
+              res.data.api
+          )
+          .then(res => {
+            this.props.handleImageText(res.data.ParsedResults[0].ParsedText)
+            console.log(res.data.ParsedResults[0].ParsedText)
+            this.props.updateCurrent(1)
+          })
+
+          .catch(e => console.log(e))
+        this.setState({ image })
+      })
+      .catch(e => console.log(e))
+  }
+
+  sendToServer = (image, url) => {
+    const formData = new FormData()
+    formData.append("image", image)
+    return serviceUpload
+      .post(url, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      })
+      .then(res => {
+        // this.props.history.push("/edit")
+        console.log("sendtoserver", res)
+
+        return res
+      })
+      .catch(e => console.log(e))
   }
 
   render() {
-    const uploadButton = (
-      <div>
-        <Icon type={this.state.loading ? "loading" : "plus"} />
-        <div className="ant-upload-text">Upload</div>
-      </div>
-    )
-    const imageUrl = this.state.imageUrl
     return (
-      <Upload
-        name="image"
-        listType="picture-card"
-        className="avatar-uploader"
-        showUploadList={false}
-        action="//jsonplaceholder.typicode.com/posts/"
-        beforeUpload={beforeUpload}
-        onChange={this.handleChange}
-      >
-        {imageUrl ? <img src={imageUrl} alt="imagen" /> : uploadButton}
-      </Upload>
+      <div>
+        <input type="file" accept="image/*" onChange={this.handleChange} />
+        <button>No tengo imagen</button>
+      </div>
     )
   }
 }
-export default picUpload
+export default PicUpload
