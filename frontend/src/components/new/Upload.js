@@ -58,9 +58,18 @@ class PicUpload extends React.Component {
 
   render() {
     return (
-      <div>
-        <input type="file" accept="image/*" onChange={this.handleChange} />
-        <button>No tengo imagen</button>
+      <div className="form-container">
+        <div>
+          <p>Sube una imagen que ya has tomado o toma una ahora.</p>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={this.handleChange}
+            name="image"
+          />
+          <button className="btn btn-positive">Tomar foto</button>
+        </div>
+        <button className="btn btn-negative">No tengo imagen</button>
       </div>
     )
   }

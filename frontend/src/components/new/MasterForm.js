@@ -7,13 +7,9 @@ import ConfirmationForm from "./Form"
 
 class MasterForm extends React.Component {
   state = {
-    current: 0,
+    current: 1,
     image: {},
     job: {}
-  }
-
-  handleSubmit = e => {
-    let place = JSON.parse(localStorage.getItem("place"))
   }
 
   handleImage = image => {
@@ -34,7 +30,7 @@ class MasterForm extends React.Component {
     switch (current) {
       case 0:
         return (
-          <div>
+          <div className="container">
             <h2>Crear una nueva vacante</h2>
             <Progress current={current} />
             <PicUpload
@@ -46,7 +42,7 @@ class MasterForm extends React.Component {
         )
       case 1:
         return (
-          <div>
+          <div className="container">
             <h2>Crear una nueva vacante</h2>
             <Progress current={current} />
             <Map updateCurrent={this.updateCurrent} />
@@ -54,7 +50,7 @@ class MasterForm extends React.Component {
         )
       case 2:
         return (
-          <div>
+          <div className="container">
             <h2>Crear una nueva vacante</h2>
             <Progress current={current} />
             <ConfirmationForm

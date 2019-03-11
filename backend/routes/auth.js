@@ -15,12 +15,11 @@ router.post("/signup", (req, res, next) => {
 })
 // Login
 router.post("/login", passport.authenticate("local"), (req, res, next) => {
-  console.log(req.user)
   res.status(200).json({ user: req.user, message: "User logged" })
 })
 
 // Logged in
-router.get("/loggedin", passport.authenticate("local"), (req, res, next) => {
+router.get("/loggedin", isAuth, (req, res, next) => {
   res.status(200).json({ message: "User logged", user: req.user })
 })
 

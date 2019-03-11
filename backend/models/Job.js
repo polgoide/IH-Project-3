@@ -4,16 +4,17 @@ let Schema = mongoose.Schema
 let jobSchema = new Schema(
   {
     position: String,
+    jobType: String,
     description: String,
     requirements: String,
+    gender: {
+      type: String,
+      enum: ["indistinto", "mujer", "hombre"]
+    },
     image: String,
     posted_by: {
       type: Schema.Types.ObjectId,
       ref: "User"
-    },
-    company: {
-      type: Schema.Types.ObjectId,
-      ref: "Company"
     },
     address: {
       pais: String,
@@ -29,6 +30,13 @@ let jobSchema = new Schema(
       phone: String,
       whatsapp: String,
       onsite: String
+    },
+    company: {
+      name: {
+        type: String,
+        required: true
+      },
+      companyType: String
     },
     active: {
       type: Boolean,

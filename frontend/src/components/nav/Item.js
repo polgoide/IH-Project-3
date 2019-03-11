@@ -11,11 +11,9 @@ class Item extends Component {
 
   render() {
     return (
-      <div className="top-menu-item">
-        <a href={this.url} title={this.text}>
-          {this.text}
-        </a>
-      </div>
+      <a href={this.url} title={this.text}>
+        {this.text}
+      </a>
     )
   }
 }

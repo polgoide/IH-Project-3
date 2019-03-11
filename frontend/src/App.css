@@ -1,12 +1,47 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,700");
-.body {
+
+.root {
   font-family: "Roboto", sans-serif;
   margin: 0;
 }
 
 .container {
-  width: 50%;
+  width: 80%;
+  padding: 20px 0;
   margin: 0 auto;
+}
+.form-container {
+  background-color: #fff;
+  border: 1px solid #1890ff;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+button,
+.btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: all 0.5s ease;
+  margin: 10px;
+}
+.btn:active {
+  transform: translateY(4px);
+}
+.btn-positive {
+  background-color: #1890ff;
+  font-weight: bold;
+}
+.btn-positive:hover {
+  background-color: #ccc;
+}
+.btn-negative {
+  background-color: #fff;
+  border: 1px solid #666;
+}
+
+.form-progress {
+  padding: 20px 0;
 }
 @media screen and (max-width: 600px) {
   .ant-steps-item-description {

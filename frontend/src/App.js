@@ -1,9 +1,7 @@
 import React, { Component } from "react"
-import "./App.css"
 import Routes from "./Routes"
-// import { NavLink } from "react-router-dom"
-// import axios from "axios"
 import Navbar from "./components/nav/Navbar"
+import "./App.css"
 
 class App extends Component {
   render() {
@@ -12,28 +10,6 @@ class App extends Component {
         <Navbar />
         <Routes />
       </div>
-
-      // <div>
-      //   <nav>
-      //     <NavLink to="/">Logo</NavLink>
-      //     {" | "}
-      //     <NavLink to="/signup">Registrate</NavLink>
-      //     {" | "}
-      //     <NavLink to="/login">Inicia sesión</NavLink>
-      //     <button
-      //       onClick={() => {
-      //         axios
-      //           .get("http://localhost:3000/logout", { withCredentials: true })
-      //           .then(res => {
-      //             console.log(res)
-      //           })
-      //       }}
-      //     >
-      //       Cerrar sesión
-      //     </button>
-      //   </nav>
-      //   <Routes />
-      // </div>
     )
   }
 }

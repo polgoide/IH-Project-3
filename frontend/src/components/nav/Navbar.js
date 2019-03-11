@@ -4,16 +4,27 @@ import Item from "./Item"
 import Logo from "./Logo"
 import { Input } from "antd"
 import "./index.css"
+import axios from "axios"
 const Search = Input.Search
 
 class Navbar extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      menu_class: ""
-    }
+  state = {
+    isLogged: false,
+    menu_class: ""
   }
-
+  checkLogged = () => {
+    let loggedUrl = "http://localhost:3000/auth/loggedin"
+    axios
+      .get(loggedUrl, { withCredentials: true })
+      .then(res => {
+        console.log(res.data)
+        this.setState({ isLogged: true, user: res.data.user })
+      })
+      .catch(e => console.log(e))
+  }
+  componentDidMount() {
+    this.checkLogged()
+  }
   setToggleTopMenuClass = () => {
     if (this.state.menu_class === "") {
       this.setState({
@@ -27,33 +38,58 @@ class Navbar extends Component {
   }
 
   render = () => {
+    let isLogged = this.state
     let top_menu_class = `top-menu ${this.state.menu_class}`
-    return (
-      <div>
-        <div className={top_menu_class}>
-          <Logo text="Logo" />
-          <div className="left">
-            <Search
-              placeholder="input search text"
-              onSearch={value => console.log(value)}
-              enterButton
-            />
+    if (isLogged) {
+      return (
+        <div>
+          <div className={top_menu_class}>
+            <Logo text="Trabajo cerca" />
+            <div className="left">
+              <Search
+                placeholder="input search text"
+                onSearch={value => console.log(value)}
+                enterButton
+              />
+            </div>
+            <div className="right">
+              <Item text="Nueva vacante" url="/nuevo" />
+              <Item text="Logout" url="/logout" />
+              <Icon
+                type="menu-unfold"
+                className="top-menu-icon"
+                onClick={this.setToggleTopMenuClass}
+              />
+            </div>
           </div>
-          <div className="right">
-            <Item text="Nueva vacante" url="/nuevo" />
-            <Item text="Crear cuenta" url="/signup" />
-            <Item text="Entrar" url="/login" />
-          </div>
-
-          <Icon
-            type="menu-unfold"
-            className="top-menu-icon"
-            onClick={this.setToggleTopMenuClass}
-          />
-          <div className="clear-fix" />
         </div>
-      </div>
-    )
+      )
+    } else {
+      return (
+        <div>
+          <div className={top_menu_class}>
+            <Logo text="Trabajo cerca" />
+            <div className="left">
+              <Search
+                placeholder="input search text"
+                onSearch={value => console.log(value)}
+                enterButton
+              />
+            </div>
+            <div className="right">
+              <Item text="Nueva vacante" url="/nuevo" />
+              <Item text="Crear cuenta" url="/signup" />
+              <Item text="Entrar" url="/login" />
+              <Icon
+                type="menu-unfold"
+                className="top-menu-icon"
+                onClick={this.setToggleTopMenuClass}
+              />
+            </div>
+          </div>
+        </div>
+      )
+    }
   }
 }
 

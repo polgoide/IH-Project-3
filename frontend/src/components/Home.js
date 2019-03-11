@@ -4,25 +4,19 @@ import axios from "axios"
 class Home extends React.Component {
   state = {
     user: {},
-    authorized: false
+    jobs: [{}]
   }
 
-  componentWillMount() {
-    this.getPrivateData()
-  }
-
-  getPrivateData = () => {
-    let url = "http://localhost:3000/auth/loggedin"
+  componentDidMount() {
+    let url = "http://localhost:3000/trabajos"
     axios
       .get(url, { withCredentials: true })
       .then(res => {
-        console.log(res)
-        this.setState({ user: res.data })
+        console.log(res.data)
+        this.props.history.push("/")
       })
       .catch(e => {
-        console.log(e)
-        this.setState({ "user.name": "invitado" })
-        // this.props.history.push("/login")
+        alert("nanai")
       })
   }
 

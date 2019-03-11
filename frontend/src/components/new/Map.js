@@ -62,20 +62,25 @@ class Map extends Component {
       })
 
       localStorage.setItem("job", JSON.stringify(job))
-      // console.log("Geo", sitio)
-      // console.log("Geo", job)
     })
   }
 
   render() {
     const { updateCurrent } = this.props
     return (
-      <div>
+      <div className="form-container">
+        <h4>Lugar de trabajo</h4>
+        <p>
+          Escoge en el mapa el negocio que esta contratando para esta posicion.
+          Puedes buscar por el nombre del negocio o la calle y el numero.
+        </p>
         <div
-          style={{ width: "400px", height: "300px" }}
+          style={{ width: "100%", height: "300px" }}
           ref={e => (this.mapContainer = e)}
         />
-        <button onClick={() => updateCurrent(2)}>Confirmar</button>
+        <button onClick={() => updateCurrent(2)} className="btn btn-positive">
+          Confirmar
+        </button>
       </div>
     )
   }
