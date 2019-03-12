@@ -17,7 +17,7 @@ class Navbar extends Component {
     axios
       .get(loggedUrl, { withCredentials: true })
       .then(res => {
-        console.log(res.data)
+        // console.log(res.data)
         this.setState({ isLogged: true, user: res.data.user })
       })
       .catch(e => console.log(e))
@@ -38,7 +38,8 @@ class Navbar extends Component {
   }
 
   render = () => {
-    let isLogged = this.state
+    let { isLogged } = this.state
+    // console.log("is logged", isLogged)
     let top_menu_class = `top-menu ${this.state.menu_class}`
     if (isLogged) {
       return (

@@ -4,7 +4,39 @@
   font-family: "Roboto", sans-serif;
   margin: 0;
 }
+.cover {
+  width: 100%;
+  height: 400px;
+  background-image: url("/cdmx.jpg");
+  padding: 100px 0;
+  background-size: cover;
+  background-position: center;
+  /* opacity: 0.8; */
+  text-align: center;
+  font-weight: 700;
+  font-size: 2rem;
+  font-family: "Avenir";
+}
+.center {
+  text-align: center;
+}
+.cover h2,
+.cover p {
+  color: #fff;
+}
+.job-container {
+  display: flex;
+  flex-wrap: wrap;
+}
 
+.job-card {
+  width: 33%;
+  box-sizing: border-box;
+  padding: 10px;
+}
+.job-card img {
+  width: 100%;
+}
 .container {
   width: 80%;
   padding: 20px 0;
@@ -17,6 +49,9 @@
   box-sizing: border-box;
   border-radius: 5px;
   margin: 10px 0;
+}
+.form-container img {
+  width: 40%;
 }
 button,
 .btn {
@@ -47,4 +82,20 @@ button,
   .ant-steps-item-description {
     display: none;
   }
+  .form-container img {
+    width: 100%;
+  }
+}
+
+.mapboxgl-popup {
+  max-width: 200px;
+}
+
+.mapboxgl-popup-content {
+  text-align: center;
+  font-family: "Avenir";
+}
+
+.mapboxgl-popup-close-button {
+  display: none;
 }

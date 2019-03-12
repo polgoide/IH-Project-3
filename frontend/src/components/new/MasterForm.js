@@ -7,7 +7,7 @@ import ConfirmationForm from "./Form"
 
 class MasterForm extends React.Component {
   state = {
-    current: 1,
+    current: 0,
     image: {},
     job: {}
   }

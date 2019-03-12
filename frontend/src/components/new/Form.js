@@ -54,7 +54,7 @@ class ConfirmationForm extends React.Component {
             />
           </p>
           <p>
-            <label htmlFor="position">Tipo de posicion</label>
+            <label htmlFor="jobType">Tipo de posicion</label>
             <select
               name="jobType"
               value={this.state.job.jobType}
@@ -98,7 +98,6 @@ class ConfirmationForm extends React.Component {
               type="text"
               name="description"
               placeholder="Descripcion de la vacante"
-              required={true}
               onChange={this.handleChange}
               value={this.props.job.description}
             />
@@ -109,7 +108,6 @@ class ConfirmationForm extends React.Component {
               type="text"
               name="requirements"
               placeholder="Requisitos"
-              required={true}
               onChange={this.handleChange}
             />
           </p>
@@ -125,7 +123,7 @@ class ConfirmationForm extends React.Component {
               type="text"
               name="company.name"
               placeholder="Nombre de la empresa"
-              required={true}
+              required
               value={this.state.job.company.name}
               onChange={this.handleChange}
             />
@@ -148,7 +146,7 @@ class ConfirmationForm extends React.Component {
             </select>
           </p>
           <p>
-            <label htmlFor="address.direccion">Requisitos de la vacante</label>
+            <label htmlFor="address.direccion">Direccion</label>
             <input
               type="text"
               name="address.direccion"

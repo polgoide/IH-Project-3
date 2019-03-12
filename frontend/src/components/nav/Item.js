@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-
+import { Link } from "react-router-dom"
 import "./index.css"
 
 class Item extends Component {
@@ -11,9 +11,9 @@ class Item extends Component {
 
   render() {
     return (
-      <a href={this.url} title={this.text}>
+      <Link to={this.url} title={this.text}>
         {this.text}
-      </a>
+      </Link>
     )
   }
 }

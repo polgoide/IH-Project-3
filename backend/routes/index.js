@@ -63,19 +63,21 @@ router.post("/nuevo", isAuth, uploadCloud.single("image"), (req, res, next) => {
 })
 
 // Job details
-router.get("/vacante/:slug/:id", (req, res, next) => {
+router.get("/vacante/:id", (req, res, next) => {
   console.log(req.params)
   Job.findById({ _id: req.params.id })
-    .then(jobs => res.status(200).json({ jobs: jobs }))
+    .then(job => res.status(200).json(job))
     .catch(e => console.log(e))
 })
 
 // Listing
 router.get("/trabajos", (req, res, next) => {
-  console.log(req.query)
   let query = req.query
-  Job.find({ query })
-    .then(jobs => res.status(200).json({ jobs: jobs }))
+  console.log("query", req.query)
+  if (!query || query === {}) query = ""
+
+  Job.find(query)
+    .then(jobs => res.status(200).json(jobs))
     .catch(e => console.log(e))
 })
 

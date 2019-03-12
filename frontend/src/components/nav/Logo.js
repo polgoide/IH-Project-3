@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-
+import { Link } from "react-router-dom"
 import "./index.css"
 
 class Logo extends Component {
@@ -9,7 +9,11 @@ class Logo extends Component {
   }
 
   render() {
-    return <div className="top-menu-lead">{this.text}</div>
+    return (
+      <div className="top-menu-lead">
+        <Link to="/">{this.text}</Link>
+      </div>
+    )
   }
 }
 
