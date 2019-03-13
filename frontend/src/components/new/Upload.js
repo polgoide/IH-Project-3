@@ -32,7 +32,6 @@ class PicUpload extends React.Component {
           )
           .then(res => {
             this.props.handleImageText(res.data.ParsedResults[0].ParsedText)
-            console.log(res.data.ParsedResults[0].ParsedText)
             this.props.updateCurrent(1)
           })
 
@@ -42,17 +41,12 @@ class PicUpload extends React.Component {
       .catch(e => console.log(e))
   }
   onTakePhoto(dataUri) {
-    // Do stuff with the dataUri photo...
-    console.log("takePhoto", dataUri)
     fetch(dataUri)
       .then(res => res.blob())
       .then(blob => {
         const file = new File([blob], "File name")
-        console.log(file)
         this.sendPhoto(file)
       })
-
-    //
   }
   cameraOn = () => {
     let { cameraOn } = this.state
@@ -73,8 +67,6 @@ class PicUpload extends React.Component {
         }
       })
       .then(res => {
-        console.log("sendtoserver", res)
-
         return res
       })
       .catch(e => console.log(e))

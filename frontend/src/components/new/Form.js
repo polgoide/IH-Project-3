@@ -13,21 +13,48 @@ class ConfirmationForm extends React.Component {
       company: {
         companyType: "Tipo de empresa"
       },
-      apply: {}
+      apply: {
+        onsite: "",
+        whatsapp: "",
+        phone: "",
+        email: ""
+      }
     },
     isEnabled: false
   }
-  componentWillMount() {
+  componentDidMount() {
     let job = JSON.parse(localStorage.getItem("job"))
-    job.image = this.props.image
+    if (this.props.image) job.image = this.props.image
     job.description = this.props.job.description
+    job["apply"] = {
+      onsite: "",
+      whatsapp: "",
+      phone: "",
+      email: ""
+    }
     this.setState({ job })
   }
 
   handleChange = e => {
-    let { job } = this.state
-    job[e.target.name] = e.target.value
-    this.setState({ job })
+    let { job, isEnabled } = this.state
+    if (
+      job.apply.onsite.length > 0 ||
+      job.apply.email.length > 0 ||
+      job.apply.whatsapp.length > 0 ||
+      job.apply.phone.length > 0
+    )
+      isEnabled = true
+    if (e.target.name.includes("apply.")) {
+      job.apply[e.target.name.split(".")[1]] = e.target.value
+    } else if (e.target.name.includes("company.")) {
+      job.company[e.target.name.split(".")[1]] = e.target.value
+    } else if (e.target.name.includes("address.")) {
+      job.address[e.target.name.split(".")[1]] = e.target.value
+    } else {
+      job[e.target.name] = e.target.value
+    }
+
+    this.setState({ job, isEnabled })
   }
   handleSubmit = () => {
     const { job } = this.state
@@ -39,7 +66,7 @@ class ConfirmationForm extends React.Component {
   }
 
   render() {
-    console.log(this.state.job)
+    let { isEnabled } = this.state
 
     return (
       <section>
@@ -238,7 +265,12 @@ class ConfirmationForm extends React.Component {
             onChange={this.handleChange}
           />
         </div>
-        <button onClick={this.handleSubmit} className="btn btn-positive">
+        {!isEnabled && <p>Define una forma para aplicar, por favor.</p>}
+        <button
+          disabled={!isEnabled}
+          onClick={this.handleSubmit}
+          className="btn btn-positive"
+        >
           Confirmar
         </button>
       </section>

@@ -17,7 +17,6 @@ class MasterForm extends React.Component {
 
   handleImage = image => {
     this.setState({ image })
-    console.log(this.state.image)
   }
   handleImageText = text => {
     const { job } = this.state

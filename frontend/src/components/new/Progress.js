@@ -4,7 +4,6 @@ import { Steps } from "antd"
 const Step = Steps.Step
 
 export default function({ current }) {
-  console.log("Step:", current)
   return (
     <div className="form-progress">
       <Steps size="small" current={current}>
