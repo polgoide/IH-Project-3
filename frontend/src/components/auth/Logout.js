@@ -10,6 +10,7 @@ class Logout extends React.Component {
       })
       .then(res => {
         console.log("Logged out")
+        window.location.replace("/")
       })
   }
   render() {

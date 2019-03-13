@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import { Icon } from "antd"
 import Item from "./Item"
 import Logo from "./Logo"
 import { Input } from "antd"
@@ -19,8 +18,7 @@ class Navbar extends Component {
     axios
       .get(loggedUrl, { withCredentials: true })
       .then(res => {
-        // console.log(res.data)
-        this.setState({ isLogged: true, user: res.data.user })
+        this.setState({ isLogged: true, user: res.data.user }, state => {})
       })
       .catch(e => console.log(e))
   }
@@ -42,66 +40,44 @@ class Navbar extends Component {
     let url = "http://localhost:3000/search"
     let query = e.target.value
     axios.post(url, { query }).then(res => {
-      console.log(res.data)
       this.props.history.push(`/trabajos/?query=${res.data.query}`)
     })
   }
 
-  render = () => {
+  render() {
     let { isLogged } = this.state
-    // console.log("is logged", isLogged)
     let top_menu_class = `top-menu ${this.state.menu_class}`
-    if (isLogged) {
-      return (
-        <div>
-          <div className={top_menu_class}>
-            <Logo text="Trabajo cerca" />
-            <div className="left">
-              <Search
-                placeholder="input search text"
-                onPressEnter={this.searchQuery}
-                enterButton
-                name="query"
-              />
-            </div>
+    return (
+      <div>
+        <div className={top_menu_class}>
+          <Logo text="Trabajo cerca" />
+          <div className="top-menu-icon" onClick={this.setToggleTopMenuClass}>
+            <span role="img" aria-label="menu">
+              🍔
+            </span>
+          </div>
+          <div className="left">
+            <Search
+              placeholder="Busca por zona, empresa..."
+              onPressEnter={this.searchQuery}
+              enterButton
+              name="query"
+            />
+          </div>
+          {isLogged ? (
             <div className="right">
               <Item text="Nueva vacante" url="/nuevo" />
               <Item text="Logout" url="/logout" />
-              <Icon
-                type="menu-unfold"
-                className="top-menu-icon"
-                onClick={this.setToggleTopMenuClass}
-              />
             </div>
-          </div>
-        </div>
-      )
-    } else {
-      return (
-        <div>
-          <div className={top_menu_class}>
-            <Logo text="Trabajo cerca" />
-            <div className="left">
-              <Search
-                placeholder="input search text"
-                onSearch={value => console.log(value)}
-                enterButton
-              />
-            </div>
+          ) : (
             <div className="right">
-              <Item text="Nueva vacante" url="/nuevo" />
               <Item text="Crear cuenta" url="/signup" />
               <Item text="Entrar" url="/login" />
-              <Icon
-                type="menu-unfold"
-                className="top-menu-icon"
-                onClick={this.setToggleTopMenuClass}
-              />
             </div>
-          </div>
+          )}
         </div>
-      )
-    }
+      </div>
+    )
   }
 }
 

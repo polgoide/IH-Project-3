@@ -3,16 +3,11 @@ import { Link } from "react-router-dom"
 import "./index.css"
 
 class Item extends Component {
-  constructor(props) {
-    super(props)
-    this.text = props.text
-    this.url = props.url
-  }
-
   render() {
+    let { url, text } = this.props
     return (
-      <Link to={this.url} title={this.text}>
-        {this.text}
+      <Link to={url} title={text}>
+        {text}
       </Link>
     )
   }

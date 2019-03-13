@@ -30,36 +30,41 @@
 
 .top-menu-icon {
   display: none;
+  font-size: 1.2rem;
 }
 
 @media screen and (max-width: 600px) {
   .top-menu {
-    overflow: hidden;
+    padding: 5px 5px;
+    justify-content: space-between;
+  }
+  .top-menu-icon {
+    display: inline-block;
+    text-align: right;
+    padding-right: 30px;
   }
 
   .top-menu > .left,
-  .top-menu > .right > a {
+  .top-menu > .right {
     display: none;
-  }
-  .top-menu-icon {
-    display: block;
   }
   .top-menu-lead,
   .top-menu-icon {
-    width: 40%;
+    width: 50%;
   }
-  .top-menu-icon {
-    position: absolute;
-    top: 20px;
-    right: -50px;
-  }
+
   .top-menu.toggled {
     display: block;
   }
 
   .top-menu.toggled > * {
     width: 100%;
-    padding: 10px 0;
+    padding: 10px 5px;
+  }
+  .top-menu.toggled > .top-menu-icon {
+    position: absolute;
+    top: 5px;
+    right: -240px;
   }
 
   .top-menu.toggled *:not(.top-menu-lead):not(.top-menu-icon):not(input) {

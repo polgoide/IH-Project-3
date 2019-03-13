@@ -19,7 +19,7 @@ class Login extends React.Component {
       .post(url, auth, { withCredentials: true })
       .then(res => {
         console.log(res.data)
-        this.props.history.push("/")
+        window.location.replace("/")
       })
       .catch(e => {
         alert("nanai")
@@ -28,22 +28,27 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div>
-        <input
-          onChange={this.handleChange}
-          placeholder="email"
-          name="email"
-          type="text"
-        />
-        <br />
-        <input
-          onChange={this.handleChange}
-          placeholder="tu password"
-          name="password"
-          type="password"
-        />
-        <br />
-        <button onClick={this.sendToServer}>Iniciar</button>
+      <div className="container">
+        <h2>Entra con tu cuenta</h2>
+        <div className="form-container">
+          <input
+            onChange={this.handleChange}
+            placeholder="email"
+            name="email"
+            type="email"
+          />
+          <br />
+          <input
+            onChange={this.handleChange}
+            placeholder="tu password"
+            name="password"
+            type="password"
+          />
+          <br />
+          <button onClick={this.sendToServer} className="btn btn-positive">
+            Iniciar
+          </button>
+        </div>
       </div>
     )
   }

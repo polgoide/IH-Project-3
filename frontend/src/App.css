@@ -98,6 +98,15 @@ button,
   color: #fff;
   border-radius: 5px;
 }
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="select"] {
+  margin: 5px 10px;
+  padding: 5px 10px;
+  border: 1px solid #1890ff;
+  border-radius: 5px;
+}
 
 /* Mapbox */
 .mapboxgl-popup {

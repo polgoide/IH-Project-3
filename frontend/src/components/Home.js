@@ -119,7 +119,6 @@ class Home extends React.Component {
   }
   render() {
     let { jobs, totals } = this.state
-    console.log(totals)
     return (
       <div>
         <header className="cover">

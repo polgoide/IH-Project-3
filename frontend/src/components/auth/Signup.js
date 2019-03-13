@@ -31,30 +31,35 @@ class Signup extends React.Component {
   render() {
     const { errors } = this.state
     return (
-      <div>
-        <input
-          onChange={this.handleChange}
-          placeholder="Email"
-          name="email"
-          type="email"
-        />
-        <br />
-        <input
-          onChange={this.handleChange}
-          placeholder="Contrasena"
-          name="password"
-          type="password"
-        />
-        <br />
-        <input
-          onChange={this.handleChange}
-          placeholder="Repite tu contrasena"
-          name="password2"
-          type="password"
-        />
+      <div className="container">
+        <h2>Crea tu cuenta</h2>
+        <div className="form-container">
+          <input
+            onChange={this.handleChange}
+            placeholder="Email"
+            name="email"
+            type="email"
+          />
+          <br />
+          <input
+            onChange={this.handleChange}
+            placeholder="Contrasena"
+            name="password"
+            type="password"
+          />
+          <br />
+          <input
+            onChange={this.handleChange}
+            placeholder="Repite tu contrasena"
+            name="password2"
+            type="password"
+          />
 
-        <p style={{ color: "red" }}>{errors.password}</p>
-        <button onClick={this.sendToServer}>Crear cuenta</button>
+          <p style={{ color: "red" }}>{errors.password}</p>
+          <button onClick={this.sendToServer} className="btn btn-positive">
+            Crear cuenta
+          </button>
+        </div>
       </div>
     )
   }
