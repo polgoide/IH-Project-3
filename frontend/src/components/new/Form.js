@@ -42,8 +42,12 @@ class ConfirmationForm extends React.Component {
       job.apply.email.length > 0 ||
       job.apply.whatsapp.length > 0 ||
       job.apply.phone.length > 0
-    )
+    ) {
       isEnabled = true
+    } else {
+      isEnabled = false
+    }
+
     if (e.target.name.includes("apply.")) {
       job.apply[e.target.name.split(".")[1]] = e.target.value
     } else if (e.target.name.includes("company.")) {
