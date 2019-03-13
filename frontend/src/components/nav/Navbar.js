@@ -5,12 +5,14 @@ import Logo from "./Logo"
 import { Input } from "antd"
 import "./index.css"
 import axios from "axios"
+import { withRouter } from "react-router-dom"
 const Search = Input.Search
 
 class Navbar extends Component {
   state = {
     isLogged: false,
-    menu_class: ""
+    menu_class: "",
+    search: ""
   }
   checkLogged = () => {
     let loggedUrl = "http://localhost:3000/auth/loggedin"
@@ -36,6 +38,14 @@ class Navbar extends Component {
       })
     }
   }
+  searchQuery = e => {
+    let url = "http://localhost:3000/search"
+    let query = e.target.value
+    axios.post(url, { query }).then(res => {
+      console.log(res.data)
+      this.props.history.push(`/trabajos/?query=${res.data.query}`)
+    })
+  }
 
   render = () => {
     let { isLogged } = this.state
@@ -49,8 +59,9 @@ class Navbar extends Component {
             <div className="left">
               <Search
                 placeholder="input search text"
-                onSearch={value => console.log(value)}
+                onPressEnter={this.searchQuery}
                 enterButton
+                name="query"
               />
             </div>
             <div className="right">
@@ -94,4 +105,4 @@ class Navbar extends Component {
   }
 }
 
-export default Navbar
+export default withRouter(Navbar)

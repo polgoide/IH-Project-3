@@ -4,6 +4,7 @@
   font-family: "Roboto", sans-serif;
   margin: 0;
 }
+/* Home */
 .cover {
   width: 100%;
   height: 400px;
@@ -11,7 +12,6 @@
   padding: 100px 0;
   background-size: cover;
   background-position: center;
-  /* opacity: 0.8; */
   text-align: center;
   font-weight: 700;
   font-size: 2rem;
@@ -42,6 +42,13 @@
   padding: 20px 0;
   margin: 0 auto;
 }
+.shortlink-container {
+  margin: 5px;
+}
+.shortlinks {
+  padding: 0 5px;
+}
+/* Form */
 .form-container {
   background-color: #fff;
   border: 1px solid #1890ff;
@@ -52,6 +59,9 @@
 }
 .form-container img {
   width: 40%;
+}
+.form-container input {
+  margin: 0 10px;
 }
 button,
 .btn {
@@ -64,29 +74,32 @@ button,
   transform: translateY(4px);
 }
 .btn-positive {
-  background-color: #1890ff;
+  background-color: #65b5ff;
+  border: 1px solid #1890ff;
   font-weight: bold;
 }
 .btn-positive:hover {
-  background-color: #ccc;
+  background-color: #1890ff;
 }
 .btn-negative {
   background-color: #fff;
   border: 1px solid #666;
 }
-
+.btn-negative:hover {
+  background-color: #ccc;
+}
 .form-progress {
   padding: 20px 0;
 }
-@media screen and (max-width: 600px) {
-  .ant-steps-item-description {
-    display: none;
-  }
-  .form-container img {
-    width: 100%;
-  }
+.loading {
+  padding: 10px;
+  font-size: 1rem;
+  background-color: #1890ff;
+  color: #fff;
+  border-radius: 5px;
 }
 
+/* Mapbox */
 .mapboxgl-popup {
   max-width: 200px;
 }
@@ -98,4 +111,17 @@ button,
 
 .mapboxgl-popup-close-button {
   display: none;
+}
+
+/* Media queries */
+@media screen and (max-width: 600px) {
+  .ant-steps-item-description {
+    display: none;
+  }
+  .form-container img {
+    width: 100%;
+  }
+  .job-card {
+    width: 50%;
+  }
 }

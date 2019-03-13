@@ -16,7 +16,8 @@ class Map extends Component {
         location: {}
       },
       company: {}
-    }
+    },
+    isEnabled: false
   }
 
   componentDidMount() {
@@ -58,7 +59,8 @@ class Map extends Component {
         }
       }
       this.setState({
-        job
+        job,
+        isEnabled: true
       })
 
       localStorage.setItem("job", JSON.stringify(job))
@@ -66,7 +68,8 @@ class Map extends Component {
   }
 
   render() {
-    const { updateCurrent } = this.props
+    let { updateCurrent } = this.props
+    let { isEnabled } = this.state
     return (
       <div className="form-container">
         <h4>Lugar de trabajo</h4>
@@ -78,9 +81,19 @@ class Map extends Component {
           style={{ width: "100%", height: "300px" }}
           ref={e => (this.mapContainer = e)}
         />
-        <button onClick={() => updateCurrent(2)} className="btn btn-positive">
+        <button
+          disabled={!isEnabled}
+          onClick={() => updateCurrent(2)}
+          className="btn btn-positive"
+        >
           Confirmar
         </button>
+        {!isEnabled && (
+          <p>
+            Selecciona en el mapa la empresa que esta contratando antes de
+            seguir.
+          </p>
+        )}
       </div>
     )
   }

@@ -4,6 +4,27 @@ const Job = require("../models/Job")
 let { isAuth } = require("../helpers/middlewares")
 const uploadCloud = require("../helpers/cloudinary")
 
+// Search
+router.post("/search", (req, res, next) => {
+  const { query } = req.body
+  Job.find({
+    $or: [
+      { position: { $regex: query, $options: "i" } },
+      { jobType: { $regex: query, $options: "i" } },
+      { "address.alcaldia": { $regex: query, $options: "i" } },
+      { "address.direccion": { $regex: query, $options: "i" } },
+      { "company.name": { $regex: query, $options: "i" } },
+      { "company.companyType": { $regex: query, $options: "i" } },
+      { description: { $regex: query, $options: "i" } }
+    ]
+  })
+    .then(result => {
+      console.log(result)
+      res.json({ result, query })
+    })
+    .catch(e => next(e))
+})
+
 // Edit job
 router.post(
   "/editar/:id",
@@ -44,7 +65,7 @@ router.get("/editar/:id", isAuth, (req, res, next) => {
 // Post pic
 router.post(
   "/upload",
-  // isAuth,
+  isAuth,
   uploadCloud.single("image"),
   (req, res, next) => {
     let apiUrl = req.file.secure_url
@@ -70,15 +91,58 @@ router.get("/vacante/:id", (req, res, next) => {
     .catch(e => console.log(e))
 })
 
+// Totals
+router.get("/totals", (req, res, next) => {
+  let query = req.query
+  Job.aggregate([
+    {
+      $group: {
+        _id: "$" + Object.keys(query)[0],
+        count: {
+          $sum: 1
+        }
+      }
+    },
+    {
+      $limit: 4
+    },
+    {
+      $sort: {
+        count: -1
+      }
+    }
+  ])
+    .then(results => res.status(200).json(results))
+    .catch(e => console.log(e))
+})
+
 // Listing
 router.get("/trabajos", (req, res, next) => {
   let query = req.query
   console.log("query", req.query)
   if (!query || query === {}) query = ""
-
-  Job.find(query)
-    .then(jobs => res.status(200).json(jobs))
-    .catch(e => console.log(e))
+  if (query.query) {
+    Job.find({
+      $or: [
+        { position: { $regex: query.query, $options: "i" } },
+        { jobType: { $regex: query.query, $options: "i" } },
+        { "address.alcaldia": { $regex: query.query, $options: "i" } },
+        { "address.direccion": { $regex: query.query, $options: "i" } },
+        { "company.name": { $regex: query.query, $options: "i" } },
+        { "company.companyType": { $regex: query.query, $options: "i" } },
+        { description: { $regex: query.query, $options: "i" } }
+      ]
+    })
+      .then(result => {
+        console.log(result)
+        res.json(result)
+      })
+      .catch(e => next(e))
+  } else {
+    Job.find(query)
+      .then(jobs => res.status(200).json(jobs))
+      .catch(e => console.log(e))
+  }
 })
 
 // Home

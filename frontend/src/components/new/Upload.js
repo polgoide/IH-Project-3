@@ -1,21 +1,25 @@
 import React from "react"
 import axios from "axios"
+import Camera from "react-html5-camera-photo"
+import "react-html5-camera-photo/build/css/index.css"
 let url = "http://localhost:3000/upload"
 let serviceUpload = axios.create({ url, withCredentials: true })
 
 class PicUpload extends React.Component {
   state = {
     loading: false,
-    image: {}
+    cameraOn: false,
+    image: {},
+    laimage: ""
   }
 
-  // componentDidUpdate() {
-  //   const { updateCurrent } = this.props
-  //   updateCurrent(1)
-  // }
-
   handleChange = e => {
+    this.setState({ loading: true })
     let image = e.target.files[0]
+    this.sendPhoto(image)
+  }
+
+  sendPhoto(image) {
     this.sendToServer(image, url)
       .then(res => {
         let ocrUrl = "https://api.ocr.space/parse/imageurl"
@@ -37,6 +41,27 @@ class PicUpload extends React.Component {
       })
       .catch(e => console.log(e))
   }
+  onTakePhoto(dataUri) {
+    // Do stuff with the dataUri photo...
+    console.log("takePhoto", dataUri)
+    fetch(dataUri)
+      .then(res => res.blob())
+      .then(blob => {
+        const file = new File([blob], "File name")
+        console.log(file)
+        this.sendPhoto(file)
+      })
+
+    //
+  }
+  cameraOn = () => {
+    let { cameraOn } = this.state
+    if (cameraOn) {
+      this.setState({ cameraOn: false })
+    } else {
+      this.setState({ cameraOn: true })
+    }
+  }
 
   sendToServer = (image, url) => {
     const formData = new FormData()
@@ -48,7 +73,6 @@ class PicUpload extends React.Component {
         }
       })
       .then(res => {
-        // this.props.history.push("/edit")
         console.log("sendtoserver", res)
 
         return res
@@ -57,19 +81,33 @@ class PicUpload extends React.Component {
   }
 
   render() {
+    let { loading, cameraOn } = this.state
     return (
       <div className="form-container">
         <div>
-          <p>Sube una imagen que ya has tomado o toma una ahora.</p>
+          <p>
+            Sube una imagen que ya has tomado o toma una ahora. Extraeremos el
+            texto de la imagen para que no tengas que escribir tanto :)
+          </p>
+          {loading && <p className="loading">Subiendo la imagen</p>}
           <input
             type="file"
             accept="image/*"
             onChange={this.handleChange}
             name="image"
           />
-          <button className="btn btn-positive">Tomar foto</button>
+          {cameraOn && (
+            <Camera
+              onTakePhoto={dataUri => {
+                this.onTakePhoto(dataUri)
+              }}
+            />
+          )}
+
+          <button className="btn btn-positive" onClick={this.cameraOn}>
+            Tomar foto
+          </button>
         </div>
-        <button className="btn btn-negative">No tengo imagen</button>
       </div>
     )
   }

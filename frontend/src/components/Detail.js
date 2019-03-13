@@ -14,12 +14,14 @@ class Detail extends React.Component {
         location: {}
       },
       company: {},
-      apply: {}
+      apply: {
+        onsite: ""
+      }
     },
     zoom: 12
   }
 
-  componentDidMount() {
+  componentWillMount() {
     let url = "http://localhost:3000/vacante/"
     let { id } = this.props.match.params
     console.log(this.props.match.params)
@@ -68,6 +70,7 @@ class Detail extends React.Component {
           {job.description && <h3>Descripcion de la vacante</h3>}
           {job.jobType && (
             <p>
+              Tipo de trabajo:
               <Link to={`/trabajos/?jobType=${job.jobType}`}>
                 {job.jobType}
               </Link>

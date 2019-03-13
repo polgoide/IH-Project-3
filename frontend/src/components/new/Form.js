@@ -1,6 +1,6 @@
 import React from "react"
 import axios from "axios"
-// import InputField from "./Input"
+import { withRouter } from "react-router-dom"
 
 class ConfirmationForm extends React.Component {
   state = {
@@ -12,17 +12,20 @@ class ConfirmationForm extends React.Component {
       },
       company: {
         companyType: "Tipo de empresa"
-      }
-    }
+      },
+      apply: {}
+    },
+    isEnabled: false
   }
   componentWillMount() {
     let job = JSON.parse(localStorage.getItem("job"))
     job.image = this.props.image
+    job.description = this.props.job.description
     this.setState({ job })
   }
 
   handleChange = e => {
-    const { job } = this.state
+    let { job } = this.state
     job[e.target.name] = e.target.value
     this.setState({ job })
   }
@@ -31,12 +34,13 @@ class ConfirmationForm extends React.Component {
     let url = "http://localhost:3000/nuevo"
     axios
       .post(url, job, { withCredentials: true })
-      .then(res => console.log(res))
+      .then(res => this.props.history.push(`/trabajo/${res.data.job._id}`))
       .catch(e => console.log(e))
   }
 
   render() {
-    console.log(this.state)
+    console.log(this.state.job)
+
     return (
       <section>
         <div className="form-container">
@@ -49,7 +53,7 @@ class ConfirmationForm extends React.Component {
               type="text"
               name="position"
               placeholder="Posicion vacante"
-              required={true}
+              required
               onChange={this.handleChange}
             />
           </p>
@@ -57,7 +61,7 @@ class ConfirmationForm extends React.Component {
             <label htmlFor="jobType">Tipo de posicion</label>
             <select
               name="jobType"
-              value={this.state.job.jobType}
+              defaultValue={this.state.job.jobType}
               onChange={this.handleChange}
               required
             >
@@ -80,7 +84,7 @@ class ConfirmationForm extends React.Component {
             <label htmlFor="gender">Preferencia de genero</label>
             <select
               name="gender"
-              value={this.state.job.gender}
+              defaultValue={this.state.job.gender}
               onChange={this.handleChange}
             >
               <option value="" defaultValue disabled hidden>
@@ -99,7 +103,7 @@ class ConfirmationForm extends React.Component {
               name="description"
               placeholder="Descripcion de la vacante"
               onChange={this.handleChange}
-              value={this.props.job.description}
+              defaultValue={this.state.job.description}
             />
           </p>
           <p>
@@ -111,8 +115,10 @@ class ConfirmationForm extends React.Component {
               onChange={this.handleChange}
             />
           </p>
-          <p>Imagen de la oferta:</p>
-          <img src={this.props.image} alt="Oferta de trabajo" />
+          {this.state.job.image && <p>Imagen de la oferta:</p>}
+          {this.state.job.image && (
+            <img src={this.state.job.image} alt="Oferta de trabajo" />
+          )}
         </div>
         <div className="form-container">
           <h3>Lugar de trabajo</h3>
@@ -124,7 +130,7 @@ class ConfirmationForm extends React.Component {
               name="company.name"
               placeholder="Nombre de la empresa"
               required
-              value={this.state.job.company.name}
+              defaultValue={this.state.job.company.name}
               onChange={this.handleChange}
             />
           </p>
@@ -132,7 +138,7 @@ class ConfirmationForm extends React.Component {
             <label htmlFor="company.companyType">Tipo de empresa</label>
             <select
               name="company.companyType"
-              value={this.state.job.company.companyType}
+              defaultValue={this.state.job.company.companyType}
               onChange={this.handleChange}
               required
             >
@@ -151,8 +157,8 @@ class ConfirmationForm extends React.Component {
               type="text"
               name="address.direccion"
               placeholder="Direccion"
-              required={true}
-              value={this.state.job.address.direccion}
+              required
+              defaultValue={this.state.job.address.direccion}
               onChange={this.handleChange}
             />
           </p>
@@ -162,8 +168,8 @@ class ConfirmationForm extends React.Component {
               type="text"
               name="address.alcaldia"
               placeholder="Alcaldia"
-              required={true}
-              value={this.state.job.address.alcaldia}
+              required
+              defaultValue={this.state.job.address.alcaldia}
               onChange={this.handleChange}
             />
           </p>
@@ -173,8 +179,8 @@ class ConfirmationForm extends React.Component {
               type="text"
               name="address.ciudad"
               placeholder="Ciudad"
-              required={true}
-              value={this.state.job.address.ciudad}
+              required
+              defaultValue={this.state.job.address.ciudad}
               onChange={this.handleChange}
             />
           </p>
@@ -184,8 +190,8 @@ class ConfirmationForm extends React.Component {
               type="text"
               name="address.estado"
               placeholder="Estado"
-              required={true}
-              value={this.state.job.address.estado}
+              required
+              defaultValue={this.state.job.address.estado}
               onChange={this.handleChange}
             />
           </p>
@@ -195,8 +201,8 @@ class ConfirmationForm extends React.Component {
               type="text"
               name="address.pais"
               placeholder="Pais"
-              required={true}
-              value={this.state.job.address.pais}
+              required
+              defaultValue={this.state.job.address.pais}
               onChange={this.handleChange}
             />
           </p>
@@ -214,21 +220,21 @@ class ConfirmationForm extends React.Component {
             type="email"
             name="apply.email"
             placeholder="Email"
-            required={true}
+            required
             onChange={this.handleChange}
           />
           <input
             type="text"
             name="apply.whatsapp"
             placeholder="Whatsapp"
-            required={true}
+            required
             onChange={this.handleChange}
           />
           <input
             type="text"
             name="apply.phone"
             placeholder="Telefono"
-            required={true}
+            required
             onChange={this.handleChange}
           />
         </div>
@@ -240,4 +246,4 @@ class ConfirmationForm extends React.Component {
   }
 }
 
-export default ConfirmationForm
+export default withRouter(ConfirmationForm)
