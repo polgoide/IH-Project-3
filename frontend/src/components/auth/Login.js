@@ -6,6 +6,9 @@ class Login extends React.Component {
     auth: {}
   }
 
+  componentDidMount() {
+    document.title = "Entra con tu cuenta"
+  }
   handleChange = e => {
     let { auth } = this.state
     auth[e.target.name] = e.target.value
@@ -14,7 +17,7 @@ class Login extends React.Component {
 
   sendToServer = () => {
     let { auth } = this.state
-    let url = "http://localhost:3000/auth/login"
+    let url = "https://trabajocerca.herokuapp.com/api/auth/login"
     axios
       .post(url, auth, { withCredentials: true })
       .then(res => {

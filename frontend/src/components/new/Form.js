@@ -31,7 +31,7 @@ class ConfirmationForm extends React.Component {
   }
   handleSubmit = () => {
     const { job } = this.state
-    let url = "http://localhost:3000/nuevo"
+    let url = "https://trabajocerca.herokuapp.com/api/nuevo"
     axios
       .post(url, job, { withCredentials: true })
       .then(res => this.props.history.push(`/trabajo/${res.data.job._id}`))

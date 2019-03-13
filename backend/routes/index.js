@@ -146,10 +146,5 @@ router.get("/trabajos", (req, res, next) => {
 })
 
 // Home
-router.get("/", (req, res, next) => {
-  Job.find()
-    .then(jobs => res.status(200).json({ jobs: jobs }))
-    .catch(e => console.log(e))
-})
 
 module.exports = router

@@ -19,12 +19,11 @@ class List extends React.Component {
   }
 
   componentDidMount() {
-    let url = "http://localhost:3000/trabajos"
+    let url = "https://trabajocerca.herokuapp.com/api/trabajos"
     axios
       .get(url + this.props.location.search, { withCredentials: true })
       .then(res => {
-        console.log(res.data)
-
+        document.title = "Tus trabajos cerca  de ti"
         this.setState({ jobs: res.data })
         this.getMap()
       })
@@ -34,7 +33,6 @@ class List extends React.Component {
   }
   getMap() {
     const { lng, lat } = this.state.jobs[0].address.location
-    console.log(this.state)
     map = new mapboxgl.Map({
       container: this.mapContainer,
       style: "mapbox://styles/mapbox/streets-v9",
@@ -82,16 +80,13 @@ class List extends React.Component {
     let { jobs } = this.state
     return (
       <div>
-        <h2 className="center">Ultimas vacantes</h2>
+        <h2 className="center">Últimas vacantes</h2>
         <section className="container job-container">
           <div
             style={{ width: "100%", height: "300px" }}
             ref={e => (this.mapContainer = e)}
           />
           {jobs.map((b, key) => {
-            // console.log(b.address.location)
-            // if (b.address.location)
-            //   this.getMarker(b.address.location.lng, b.address.location.lat)
             return (
               <div key={key} className="job-card">
                 <div>

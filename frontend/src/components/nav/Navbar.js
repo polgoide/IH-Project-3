@@ -1,11 +1,9 @@
 import React, { Component } from "react"
 import Item from "./Item"
 import Logo from "./Logo"
-import { Input } from "antd"
 import "./index.css"
 import axios from "axios"
 import { withRouter } from "react-router-dom"
-const Search = Input.Search
 
 class Navbar extends Component {
   state = {
@@ -14,7 +12,7 @@ class Navbar extends Component {
     search: ""
   }
   checkLogged = () => {
-    let loggedUrl = "http://localhost:3000/auth/loggedin"
+    let loggedUrl = "https://trabajocerca.herokuapp.com/api/auth/loggedin"
     axios
       .get(loggedUrl, { withCredentials: true })
       .then(res => {
@@ -37,7 +35,8 @@ class Navbar extends Component {
     }
   }
   searchQuery = e => {
-    let url = "http://localhost:3000/search"
+    e.preventDefault()
+    let url = "https://trabajocerca.herokuapp.com/api/search"
     let query = e.target.value
     axios.post(url, { query }).then(res => {
       this.props.history.push(`/trabajos/?query=${res.data.query}`)
@@ -57,12 +56,15 @@ class Navbar extends Component {
             </span>
           </div>
           <div className="left">
-            <Search
-              placeholder="Busca por zona, empresa..."
-              onPressEnter={this.searchQuery}
-              enterButton
-              name="query"
-            />
+            <form action="/trabajos/">
+              <input
+                type="text"
+                name="query"
+                placeholder="Busca por zona, empresa..."
+                onSubmit={this.searchQuery}
+                className="search"
+              />
+            </form>
           </div>
           {isLogged ? (
             <div className="right">

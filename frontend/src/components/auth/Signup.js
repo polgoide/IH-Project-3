@@ -15,10 +15,12 @@ class Signup extends React.Component {
     if (newUser.password !== newUser.password2) errors.password = "no coinciden"
     this.setState({ newUser, errors })
   }
-
+  componentDidMount() {
+    document.title = "Crea una cuenta"
+  }
   sendToServer = () => {
     let { newUser } = this.state
-    let url = "http://localhost:3000/auth/signup"
+    let url = "https://trabajocerca.herokuapp.com/api/auth/signup"
     axios
       .post(url, newUser)
       .then(res => {

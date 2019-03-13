@@ -2,7 +2,7 @@ import React from "react"
 import axios from "axios"
 import Camera from "react-html5-camera-photo"
 import "react-html5-camera-photo/build/css/index.css"
-let url = "http://localhost:3000/upload"
+let url = "https://trabajocerca.herokuapp.com/api/upload"
 let serviceUpload = axios.create({ url, withCredentials: true })
 
 class PicUpload extends React.Component {

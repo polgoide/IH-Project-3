@@ -22,12 +22,14 @@ class Detail extends React.Component {
   }
 
   componentWillMount() {
-    let url = "http://localhost:3000/vacante/"
+    let url = "https://trabajocerca.herokuapp.com/api/vacante/"
     let { id } = this.props.match.params
+
     console.log(this.props.match.params)
     axios
       .get(url + id, { withCredentials: true })
       .then(res => {
+        document.title = res.data.position + " en " + res.data.company.name
         this.setState({ job: res.data })
         this.getMap()
       })

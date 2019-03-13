@@ -4,7 +4,9 @@
   font-size: 18px;
   font-weight: bold;
 }
-
+.search {
+  width: 90%;
+}
 .top-menu {
   width: 100%;
   background-color: #ffffff;

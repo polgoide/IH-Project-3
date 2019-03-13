@@ -5,7 +5,7 @@ import { Redirect } from "react-router-dom"
 class Logout extends React.Component {
   componentDidMount() {
     axios
-      .get("http://localhost:3000/auth/logout", {
+      .get("https://trabajocerca.herokuapp.com/api/auth/logout", {
         withCredentials: true
       })
       .then(res => {

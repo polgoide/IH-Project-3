@@ -40,7 +40,7 @@ class Home extends React.Component {
     this.getTotals("company.companyType")
   }
   getJobs = () => {
-    let url = "http://localhost:3000/trabajos"
+    let url = "https://trabajocerca.herokuapp.com/api/trabajos"
     axios
       .get(url + this.props.location.search, { withCredentials: true })
       .then(res => {
@@ -52,7 +52,7 @@ class Home extends React.Component {
       })
   }
   getTotals = field => {
-    let url = "http://localhost:3000/totals?"
+    let url = "https://trabajocerca.herokuapp.com/api/totals?"
     axios
       .get(url + field, { withCredentials: true })
       .then(res => {
@@ -187,7 +187,7 @@ class Home extends React.Component {
             ref={e => (this.mapContainer = e)}
           />
         </section>
-        <h2 className="center">Ultimas vacantes</h2>
+        <h2 className="center">Últimas vacantes</h2>
         <section className="container job-container">
           {jobs.map((b, key) => {
             return (

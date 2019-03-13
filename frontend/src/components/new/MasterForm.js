@@ -11,6 +11,9 @@ class MasterForm extends React.Component {
     image: {},
     job: {}
   }
+  componentDidMount() {
+    document.title = "Crea una nueva oferta de trabajo"
+  }
 
   handleImage = image => {
     this.setState({ image })
