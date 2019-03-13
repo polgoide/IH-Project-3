@@ -80,5 +80,8 @@ const index = require("./routes/index")
 const auth = require("./routes/auth")
 app.use("/auth", auth)
 app.use("/api", index)
+app.use("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/index.html"))
+})
 
 module.exports = app

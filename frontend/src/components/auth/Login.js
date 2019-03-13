@@ -17,7 +17,7 @@ class Login extends React.Component {
 
   sendToServer = () => {
     let { auth } = this.state
-    let url = "https://trabajocerca.herokuapp.com/api/auth/login"
+    let url = "https://trabajocerca.herokuapp.com/auth/login"
     axios
       .post(url, auth, { withCredentials: true })
       .then(res => {

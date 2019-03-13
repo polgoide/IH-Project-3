@@ -12,7 +12,7 @@ class Navbar extends Component {
     search: ""
   }
   checkLogged = () => {
-    let loggedUrl = "https://trabajocerca.herokuapp.com/api/auth/loggedin"
+    let loggedUrl = "https://trabajocerca.herokuapp.com/auth/loggedin"
     axios
       .get(loggedUrl, { withCredentials: true })
       .then(res => {
@@ -36,7 +36,7 @@ class Navbar extends Component {
   }
   searchQuery = e => {
     e.preventDefault()
-    let url = "https://trabajocerca.herokuapp.com/api/search"
+    let url = "https://trabajocerca.herokuapp.com/api/trabajos"
     let query = e.target.value
     axios.post(url, { query }).then(res => {
       this.props.history.push(`/trabajos/?query=${res.data.query}`)

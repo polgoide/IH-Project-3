@@ -20,7 +20,7 @@ class Signup extends React.Component {
   }
   sendToServer = () => {
     let { newUser } = this.state
-    let url = "https://trabajocerca.herokuapp.com/api/auth/signup"
+    let url = "https://trabajocerca.herokuapp.com/auth/signup"
     axios
       .post(url, newUser)
       .then(res => {

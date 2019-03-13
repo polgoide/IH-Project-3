@@ -15,7 +15,7 @@ export default function({ current }) {
         />
         <Step
           title="Confirma los detalles"
-          description="This is a description."
+          description="Completa la información que falta"
         />
       </Steps>
     </div>
