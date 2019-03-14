@@ -5,5 +5,8 @@ It has been built using:
 * MongoDB (Mongoose)
 * React
 
+And external services:
+* OCR
+* Mapbox
 
 Demo:  https://trabajocerca.herokuapp.com
